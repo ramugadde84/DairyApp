@@ -20,6 +20,7 @@ public class HelloWorldController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView helloWorld() {
+        //simple application
         ModelAndView mav = new ModelAndView("index");
         mav.addObject("siteName", this.siteName);
         return mav;
