@@ -5,6 +5,10 @@ import com.sample.test.TestDemo.model.JWTUser;
 import com.sample.test.TestDemo.security.JwtAuthenticationRequest;
 import com.sample.test.TestDemo.security.JwtAuthenticationResponse;
 import com.sample.test.TestDemo.security.JwtTokenUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +27,11 @@ import java.util.Objects;
 
 
 @RestController
+@Api(value = "Authentication Rest Service", description = "This Rest service is for Authentication")
 public class AuthenticationRestService {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Value("${jwt.header}")
     private String tokenHeader;
 
@@ -37,8 +45,11 @@ public class AuthenticationRestService {
     @Qualifier("jwtUserDetailsService")
     private UserDetailsService userDetailsService;
 
+    @ApiOperation(value="It Generates token and Return as response")
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
+
+        logger.debug("Entered into the createAuthenticationToken() inside {}",this.getClass().getName());
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
@@ -48,6 +59,7 @@ public class AuthenticationRestService {
 
         // Return the token
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+
     }
 
     @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)

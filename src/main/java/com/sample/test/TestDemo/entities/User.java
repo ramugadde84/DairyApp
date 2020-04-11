@@ -28,22 +28,18 @@ public class User implements Serializable {
 
     @Column(name = "PASSWORD")
     @NotNull
-
     private String password;
 
     @Column(name = "FIRSTNAME")
     @NotNull
-
     private String firstname;
 
     @Column(name = "LASTNAME")
     @NotNull
-
     private String lastname;
 
     @Column(name = "EMAIL")
     @NotNull
-
     private String email;
 
     @Column(name = "ENABLED")

@@ -8,6 +8,8 @@ import com.sample.test.TestDemo.model.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,9 +20,19 @@ public class UserSaveFacade {
     @Autowired
     private JPADao jpaDao;
 
+    @Autowired
+    private HttpServletResponse response;
+
     @GetMapping("/api/userinfo/list")
-    public List<UserInformation> getHeros() {
-        return jpaDao.fetchAllUserInformation();
+    public List<UserInformation> getHeros() throws IOException {
+        try {
+            return jpaDao.fetchAllUserInformation();
+        }catch(Exception e){
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    e.getMessage());
+        }
+
+        return null;
     }
 
 

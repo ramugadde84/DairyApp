@@ -2,6 +2,7 @@ package com.sample.test.TestDemo;
 
 import com.sample.test.TestDemo.dao.JPADao;
 import com.sample.test.TestDemo.entities.User;
+import com.sample.test.TestDemo.entities.UserDataInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,8 +34,8 @@ public class WelcomeController {
 
 
     @GetMapping("/api/get")
-    public List<User> save() {
-        return jpaDao.fetchUserData();
+    public List<UserDataInfo> save() {
+        return jpaDao.fetchUserInfoData();
 
     }
 

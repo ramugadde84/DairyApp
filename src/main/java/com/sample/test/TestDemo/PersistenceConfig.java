@@ -22,10 +22,6 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class,
-        HibernateJpaAutoConfiguration.class})
-@EnableTransactionManagement
 public class PersistenceConfig {
 
     @Value("${jdbc.url}")

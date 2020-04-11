@@ -2,6 +2,7 @@ package com.sample.test.TestDemo.dao;
 
 import com.sample.test.TestDemo.Hero;
 import com.sample.test.TestDemo.entities.User;
+import com.sample.test.TestDemo.entities.UserDataInfo;
 import com.sample.test.TestDemo.entities.UserInformationEntity;
 import com.sample.test.TestDemo.model.UserInformation;
 import org.springframework.stereotype.Repository;
@@ -14,8 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class JPADaoImpl implements JPADao {
-
+public class JPADaoImpl implements JPADao  {
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -49,20 +49,32 @@ public class JPADaoImpl implements JPADao {
 
     @Override
     public List<UserInformation> fetchAllUserInformation() {
-        Query query =
-                entityManager.createNamedQuery("fetchAllUserInformation");
+        try {
+            Query query =
+                    entityManager.createNamedQuery("fetchAllUserInformation");
 
 
-        List<UserInformationEntity> userInformationEntities = query.getResultList();
+            List<UserInformationEntity> userInformationEntities = query.getResultList();
 
-        return userInformationEntities.stream().map(userInfo -> {
-            final UserInformation userInformation = new UserInformation();
-            userInformation.setCreatedDate(userInfo.getCreatedDate());
-            userInformation.setId(userInfo.getId());
-            userInformation.setUsername(userInfo.getUsername());
-            return userInformation;
-        }).collect(Collectors.toList());
+            return userInformationEntities.stream().map(userInfo -> {
+                final UserInformation userInformation = new UserInformation();
+                userInformation.setCreatedDate(userInfo.getCreatedDate());
+                userInformation.setId(userInfo.getId());
+                userInformation.setUsername(userInfo.getUsername());
+                return userInformation;
+            }).collect(Collectors.toList());
+        }catch(Exception e) {
+            throw e;
+        }
     }
 
+
+    public List<UserDataInfo> fetchUserInfoData() {
+        Query query = entityManager.createNamedQuery("fetchUserDataInfo");
+
+        List<UserDataInfo> users = query.getResultList();
+
+        return users;
+    }
 
 }
