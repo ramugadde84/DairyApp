@@ -1,5 +1,6 @@
 package com.sample.springboot.webservices;
 
+import com.sample.springboot.config.Loggable;
 import com.sample.springboot.exception.AuthenticationException;
 import com.sample.springboot.model.JWTUser;
 import com.sample.springboot.security.JwtAuthenticationRequest;
@@ -47,9 +48,8 @@ public class AuthenticationRestService {
 
     @ApiOperation(value="It Generates token and Return as response")
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
+    @Loggable
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
-
-        logger.debug("Entered into the createAuthenticationToken() inside {}",this.getClass().getName());
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
@@ -63,6 +63,7 @@ public class AuthenticationRestService {
     }
 
     @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
+    @Loggable
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
         String authToken = request.getHeader(tokenHeader);
         final String token = authToken.substring(7);

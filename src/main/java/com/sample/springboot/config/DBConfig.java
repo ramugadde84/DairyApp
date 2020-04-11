@@ -41,7 +41,7 @@ public class DBConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{"com.sample.test.TestDemo.entities"});
+        em.setPackagesToScan(new String[]{"com.sample.springboot.entities"});
 
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
