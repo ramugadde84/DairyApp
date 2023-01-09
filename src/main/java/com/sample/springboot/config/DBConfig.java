@@ -76,6 +76,7 @@ public class DBConfig {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
+    //sample app
     Properties additionalProperties() {
         Properties properties = new Properties();
 
